@@ -2,26 +2,85 @@
 <meta charset="utf-8">
 <body>
 
-<p id="placeholder">Hello variables!</p>
 
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
+
+
+</svg>
 
 
 
 
 <!-- JAVASCRIPT BÖRJAR HÄR -->
 
+<script src="lib/underscore.js"></script>
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+
 <script type="text/javascript">
 
-    /* Variabler */
 
-    var name = "Stockholm";
-    var formed = 1250;
-    var isCapital = true;
-
-
-    var districts = ["Akalla", "Bagarmossen"];
+    var listOfCities =
+    [
+        {"name":"Stockholm","formed":1250,"isCapital":"true", pop: 1000000},
+        {"name":"Göteborg","formed":1621,"isCapital":"false", pop: 500000},
+        {"name":"Gävle","formed":1446,"isCapital":"false", pop: 150000},
 
 
+    ];
+
+    var storleksSkalan = d3.scale.sqrt()
+                .domain([150000, 1000000])
+                .range([20, 100])
+
+
+    var svg = d3.select("svg");
+
+
+    var circles = svg.selectAll("circle")
+            .data(listOfCities);
+
+
+    circles.enter()
+            .append("circle")
+
+
+    circles.attr("r", function(item){
+        return storleksSkalan(item.pop);
+    })
+    .attr("fill", "red")
+    .attr("stroke", "black")
+    .attr("cx", function (item, index){
+        return index * 200;
+    })
+    .attr("cy", 300)
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*var city1 = {
+        name : "Stockholm",
+        formed : 1250,
+        isCapital : true,
+        districts : ["Akalla", "Bagarmossen"]
+    };
+
+    var city2 = {
+        name : "Borås",
+        formed : 1650,
+        isCapital : false,
+        districts : []
+    };*/
 
 
 
