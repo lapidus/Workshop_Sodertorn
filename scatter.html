@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<head>
+
+    <style>
+
+        circle.dot {
+            fill: steelblue;
+        }
+
+        .axis text {
+            font: 10px sans-serif;
+        }
+
+        .axis path, .axis line {
+            fill: none;
+            stroke: #000;
+            shape-rendering: crispEdges;
+        }
+
+    </style>
+
+
+</head>
+
+<body>
+<p>Hello Scatterchart!</p>
+
+</body>
+
+
+
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+<script type="text/javascript">
+
+    var data = [
+        {x: 10.0, y: 9.14},
+        {x:  8.0, y: 8.14},
+        {x: 13.0, y: 8.74},
+        {x:  9.0, y: 8.77},
+        {x: 11.0, y: 9.26},
+        {x: 14.0, y: 8.10},
+        {x:  6.0, y: 6.13},
+        {x:  4.0, y: 3.10},
+        {x: 12.0, y: 9.13},
+        {x:  7.0, y: 7.26},
+        {x:  5.0, y: 4.74},
+    ];
+
+    var width = 960,
+        height = 500;
+
+    var margin = 50;
+
+    var xScale = d3.scale.linear()
+            .domain([3,15])
+            .range([0, width]);
+
+    var yScale = d3.scale.linear()
+            .domain([2,10])
+            .range([height-margin, 0]);
+
+    var xAxis = d3.svg.axis()
+            .scale(xScale)
+            .orient("bottom")
+
+    var yAxis = d3.svg.axis()
+            .scale(yScale)
+            .orient("left")
+
+
+    var svg = d3.select("body").append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .attr("class", "dot chart")
+            .append("g")
+            .attr("transform", "translate(" + 20 + "," + 20 + ")");
+
+    svg.selectAll(".dot")
+            .data(data)
+            .enter().append("circle")
+            .attr("class", "dot")
+            .attr("cx", function(d) { return xScale(d.x); })
+            .attr("cy", function(d) { return yScale(d.y); })
+            .attr("r", 12);
+
+    svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + (height-margin) + ")")
+            .call(xAxis);
+
+    svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis);
+
+
+
+</script>
+</html>
